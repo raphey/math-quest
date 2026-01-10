@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quest! 🦄🦕</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>Math Quest! <span class="deco">🦄 🦕 🦖</span></h1>
+            <div class="progress">
+                <span id="question-counter">Question 1 of 10</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main" id="game-screen">
+            <div class="question-display">
+                <h2 id="question-text">5 + 3 = ?</h2>
+                <div class="answer-display" id="answer-display"></div>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="number-pad">
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn clear-btn" id="clear-btn">Clear</button>
+                <button class="num-btn" data-num="0">0</button>
+                <button class="num-btn enter-btn" id="enter-btn">Enter ✓</button>
+            </div>
+        </main>
+
+        <div class="celebration-screen hidden" id="celebration-screen">
+            <canvas id="fireworks-canvas"></canvas>
+            <div class="celebration-message">
+                <h2 id="celebration-title">Great Job!</h2>
+                <p id="celebration-score">You got 8 out of 10!</p>
+                <button class="play-again-btn" id="play-again-btn">Play Again! 🎮</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="sounds.js"></script>
+    <script src="questions.js"></script>
+    <script src="game.js"></script>
+    <script src="celebrations.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
