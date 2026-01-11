@@ -156,7 +156,7 @@ const UI = {
     // Show visual feedback for wrong answer
     showWrongFeedback: function(correctAnswer) {
         const display = document.getElementById('answer-display');
-        display.style.background = 'linear-gradient(135deg, #f5576c 0%, #c62828 100%)';
+        display.style.background = 'linear-gradient(135deg, #ffa726 0%, #fb8c00 100%)';
         display.style.color = 'white';
         display.textContent = correctAnswer;
 
