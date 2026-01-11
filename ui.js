@@ -3,15 +3,51 @@
 
 const UI = {
     currentAnswer: '',
+    selectedOperation: null,
+    selectedDifficulty: null,
 
     // Initialize UI and set up event listeners
     init: function() {
         this.setupEventListeners();
         this.currentAnswer = '';
+        this.showOperationScreen();
     },
 
     // Set up all button click handlers
     setupEventListeners: function() {
+        // Operation buttons
+        const operationButtons = document.querySelectorAll('.menu-btn[data-operation]');
+        operationButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('disabled')) return;
+
+                const operation = btn.getAttribute('data-operation');
+                this.selectedOperation = operation;
+
+                if (typeof Sounds !== 'undefined') {
+                    Sounds.playClick();
+                }
+
+                this.showDifficultyScreen();
+            });
+        });
+
+        // Difficulty buttons
+        const difficultyButtons = document.querySelectorAll('.menu-btn[data-difficulty]');
+        difficultyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('disabled')) return;
+
+                const difficulty = parseInt(btn.getAttribute('data-difficulty'));
+                this.selectedDifficulty = difficulty;
+
+                if (typeof Sounds !== 'undefined') {
+                    Sounds.playClick();
+                }
+
+                this.startGame();
+            });
+        });
         // Number buttons
         const numButtons = document.querySelectorAll('.num-btn[data-num]');
         numButtons.forEach(btn => {
@@ -45,7 +81,7 @@ const UI = {
             if (typeof Sounds !== 'undefined') {
                 Sounds.playClick();
             }
-            Game.restart();
+            this.showOperationScreen();
         });
 
         // Keyboard support
@@ -65,8 +101,8 @@ const UI = {
 
     // Add a digit to the current answer
     addDigit: function(digit) {
-        // Limit to 2 digits for single-digit addition (max answer is 18)
-        if (this.currentAnswer.length < 2) {
+        // Limit to 3 digits (max answer for two-digit addition is 198)
+        if (this.currentAnswer.length < 3) {
             this.currentAnswer += digit;
             this.updateAnswerDisplay();
         }
@@ -128,9 +164,11 @@ const UI = {
     showCelebration: function(score, total, level) {
         const gameScreen = document.getElementById('game-screen');
         const celebrationScreen = document.getElementById('celebration-screen');
+        const progressContainer = document.getElementById('progress-container');
 
         gameScreen.classList.add('hidden');
         celebrationScreen.classList.remove('hidden');
+        progressContainer.classList.add('hidden');
 
         // Update celebration text
         const title = document.getElementById('celebration-title');
@@ -147,18 +185,48 @@ const UI = {
         scoreText.textContent = `You got ${score} out of ${total}!`;
     },
 
-    // Show the game screen (hide celebration)
-    showGameScreen: function() {
+    // Show operation selection screen
+    showOperationScreen: function() {
+        const operationScreen = document.getElementById('operation-screen');
+        const difficultyScreen = document.getElementById('difficulty-screen');
         const gameScreen = document.getElementById('game-screen');
         const celebrationScreen = document.getElementById('celebration-screen');
+        const progressContainer = document.getElementById('progress-container');
 
-        gameScreen.classList.remove('hidden');
+        operationScreen.classList.remove('hidden');
+        difficultyScreen.classList.add('hidden');
+        gameScreen.classList.add('hidden');
         celebrationScreen.classList.add('hidden');
+        progressContainer.classList.add('hidden');
+    },
+
+    // Show difficulty selection screen
+    showDifficultyScreen: function() {
+        const operationScreen = document.getElementById('operation-screen');
+        const difficultyScreen = document.getElementById('difficulty-screen');
+        const progressContainer = document.getElementById('progress-container');
+
+        operationScreen.classList.add('hidden');
+        difficultyScreen.classList.remove('hidden');
+        progressContainer.classList.add('hidden');
+    },
+
+    // Start the game
+    startGame: function() {
+        const difficultyScreen = document.getElementById('difficulty-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const progressContainer = document.getElementById('progress-container');
+
+        difficultyScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+        progressContainer.classList.remove('hidden');
+
+        // Initialize the game with selected settings
+        Game.init(this.selectedOperation, this.selectedDifficulty);
     }
 };
 
 // Initialize everything when the page loads
 window.addEventListener('DOMContentLoaded', () => {
     UI.init();
-    Game.init();
 });

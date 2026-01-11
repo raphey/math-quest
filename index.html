@@ -10,7 +10,7 @@
     <div class="game-container">
         <header class="game-header">
             <h1>Math Quest! <span class="deco">🦄 🦕 🦖</span></h1>
-            <div class="progress">
+            <div class="progress" id="progress-container">
                 <span id="question-counter">Question 1 of 10</span>
                 <div class="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div>
@@ -18,7 +18,29 @@
             </div>
         </header>
 
-        <main class="game-main" id="game-screen">
+        <!-- Operation Selection Screen -->
+        <div class="menu-screen" id="operation-screen">
+            <h2 class="menu-title">Choose an Operation</h2>
+            <div class="menu-buttons">
+                <button class="menu-btn" data-operation="addition">+ Addition</button>
+                <button class="menu-btn disabled" data-operation="subtraction">- Subtraction<br><span class="coming-soon">Coming Soon</span></button>
+                <button class="menu-btn disabled" data-operation="multiplication">× Multiplication<br><span class="coming-soon">Coming Soon</span></button>
+                <button class="menu-btn disabled" data-operation="division">÷ Division<br><span class="coming-soon">Coming Soon</span></button>
+            </div>
+        </div>
+
+        <!-- Difficulty Selection Screen -->
+        <div class="menu-screen hidden" id="difficulty-screen">
+            <h2 class="menu-title">Choose Difficulty</h2>
+            <div class="menu-buttons">
+                <button class="menu-btn" data-difficulty="1">Level 1</button>
+                <button class="menu-btn disabled" data-difficulty="2">Level 2<br><span class="coming-soon">Coming Soon</span></button>
+                <button class="menu-btn disabled" data-difficulty="3">Level 3<br><span class="coming-soon">Coming Soon</span></button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <main class="game-main hidden" id="game-screen">
             <div class="question-display">
                 <h2 id="question-text">5 + 3 = ?</h2>
                 <div class="answer-display" id="answer-display"></div>
@@ -42,6 +64,7 @@
             </div>
         </main>
 
+        <!-- Celebration Screen -->
         <div class="celebration-screen hidden" id="celebration-screen">
             <canvas id="fireworks-canvas"></canvas>
             <div class="celebration-message">

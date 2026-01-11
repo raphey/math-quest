@@ -6,9 +6,13 @@ const Game = {
     currentQuestionNum: 0,
     correctCount: 0,
     currentQuestion: null,
+    operation: null,
+    difficulty: null,
 
-    // Initialize the game
-    init: function() {
+    // Initialize the game with operation and difficulty
+    init: function(operation, difficulty) {
+        this.operation = operation;
+        this.difficulty = difficulty;
         this.currentQuestionNum = 0;
         this.correctCount = 0;
         this.nextQuestion();
@@ -23,7 +27,7 @@ const Game = {
             return;
         }
 
-        this.currentQuestion = QuestionGenerator.generate();
+        this.currentQuestion = QuestionGenerator.generate(this.operation, this.difficulty);
 
         // Notify UI to update
         if (typeof UI !== 'undefined') {
