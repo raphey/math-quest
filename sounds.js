@@ -80,85 +80,41 @@ const Sounds = {
         oscillator.stop(this.audioContext.currentTime + 0.3);
     },
 
-    // Play fireworks sounds (multiple whooshes and pops)
+    // Play fireworks sounds (triumphant major 7th arpeggio)
     playFireworks: function() {
         this.init();
 
-        // Create multiple firework sounds
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                this.playFireworkExplosion();
-            }, i * 400);
-        }
-    },
+        // Major 7th arpeggio: C-E-G-B across 2 octaves
+        const notes = [
+            261.63, // C4
+            329.63, // E4
+            392.00, // G4
+            493.88, // B4
+            523.25, // C5
+            659.25, // E5
+            783.99, // G5
+            987.77  // B5
+        ];
 
-    // Play a single firework explosion
-    playFireworkExplosion: function() {
-        // Whoosh up
-        const whoosh = this.audioContext.createOscillator();
-        const whooshGain = this.audioContext.createGain();
+        const noteDuration = 0.15;
 
-        whoosh.connect(whooshGain);
-        whooshGain.connect(this.audioContext.destination);
+        notes.forEach((freq, i) => {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
 
-        whoosh.frequency.setValueAtTime(100, this.audioContext.currentTime);
-        whoosh.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 0.3);
-        whoosh.type = 'sawtooth';
+            oscillator.connect(gainNode);
+            gainNode.connect(this.audioContext.destination);
 
-        whooshGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
-        whooshGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+            oscillator.frequency.value = freq;
+            oscillator.type = 'triangle';
 
-        whoosh.start(this.audioContext.currentTime);
-        whoosh.stop(this.audioContext.currentTime + 0.3);
+            const startTime = this.audioContext.currentTime + (i * 0.1);
 
-        // Explosion pop
-        setTimeout(() => {
-            const explosion = this.audioContext.createBufferSource();
-            const explosionGain = this.audioContext.createGain();
-            const filter = this.audioContext.createBiquadFilter();
+            gainNode.gain.setValueAtTime(0.25, startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + noteDuration);
 
-            // Create noise for explosion
-            const bufferSize = this.audioContext.sampleRate * 0.5;
-            const buffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
-            const data = buffer.getChannelData(0);
-
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = Math.random() * 2 - 1;
-            }
-
-            explosion.buffer = buffer;
-
-            filter.type = 'lowpass';
-            filter.frequency.value = 2000;
-
-            explosion.connect(filter);
-            filter.connect(explosionGain);
-            explosionGain.connect(this.audioContext.destination);
-
-            explosionGain.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-            explosionGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
-
-            explosion.start(this.audioContext.currentTime);
-        }, 300);
-
-        // Sparkle sounds
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => {
-                const sparkle = this.audioContext.createOscillator();
-                const sparkleGain = this.audioContext.createGain();
-
-                sparkle.connect(sparkleGain);
-                sparkleGain.connect(this.audioContext.destination);
-
-                sparkle.frequency.value = 1000 + Math.random() * 2000;
-                sparkle.type = 'sine';
-
-                sparkleGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
-                sparkleGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
-
-                sparkle.start(this.audioContext.currentTime);
-                sparkle.stop(this.audioContext.currentTime + 0.2);
-            }, 300 + i * 50);
-        }
+            oscillator.start(startTime);
+            oscillator.stop(startTime + noteDuration);
+        });
     }
 };
