@@ -28,12 +28,40 @@ const QuestionGenerator = {
         };
     },
 
+    // Generate subtraction question based on difficulty
+    generateSubtraction: function(difficulty) {
+        let num1, num2;
+
+        if (difficulty === 1) {
+            // Level 1: Single-digit (1-9)
+            num1 = Math.floor(Math.random() * 9) + 1;
+            num2 = Math.floor(Math.random() * num1) + 1; // Ensure positive result
+        } else if (difficulty === 2) {
+            // Level 2: Two-digit (10-99)
+            num1 = Math.floor(Math.random() * 90) + 10;
+            num2 = Math.floor(Math.random() * (num1 - 10)) + 10; // Ensure positive result
+        } else {
+            // Default to level 1
+            num1 = Math.floor(Math.random() * 9) + 1;
+            num2 = Math.floor(Math.random() * num1) + 1;
+        }
+
+        return {
+            question: `${num1} - ${num2} = ?`,
+            answer: num1 - num2,
+            num1: num1,
+            num2: num2
+        };
+    },
+
     // Main generate function - routes to correct operation
     generate: function(operation, difficulty) {
         if (operation === 'addition') {
             return this.generateAddition(difficulty);
+        } else if (operation === 'subtraction') {
+            return this.generateSubtraction(difficulty);
         }
-        // Future: add subtraction, multiplication, division
+        // Future: add multiplication, division
         // Default to addition
         return this.generateAddition(difficulty);
     }
