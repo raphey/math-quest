@@ -86,11 +86,15 @@ const Game = {
         const total = this.totalQuestions;
 
         // Determine celebration level
-        let level = 'good';
+        let level = 'keep_trying';
         if (score === total) {
             level = 'perfect';
-        } else if (score >= total - 1) {
+        } else if (score >= 9) {
             level = 'great';
+        } else if (score >= 8) {
+            level = 'good';
+        } else if (score >= 7) {
+            level = 'okay';
         }
 
         // Show celebration screen
@@ -98,13 +102,15 @@ const Game = {
             UI.showCelebration(score, total, level);
         }
 
-        // Start fireworks and sounds
-        if (typeof Celebrations !== 'undefined') {
-            Celebrations.start(level);
-        }
+        // Start fireworks and sounds only for top 3 levels
+        if (level === 'perfect' || level === 'great' || level === 'good') {
+            if (typeof Celebrations !== 'undefined') {
+                Celebrations.start(level);
+            }
 
-        if (typeof Sounds !== 'undefined') {
-            Sounds.playFireworks();
+            if (typeof Sounds !== 'undefined') {
+                Sounds.playFireworks();
+            }
         }
     },
 

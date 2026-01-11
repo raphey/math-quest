@@ -176,13 +176,20 @@ const UI = {
 
         if (level === 'perfect') {
             title.textContent = 'PERFECT! 🌟🦄🦕';
+            scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
         } else if (level === 'great') {
             title.textContent = 'Amazing! ✨🦖';
-        } else {
+            scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
+        } else if (level === 'good') {
             title.textContent = 'Great Job! 🎉';
+            scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
+        } else if (level === 'okay') {
+            title.textContent = 'Good Job! 🎉';
+            scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
+        } else {
+            title.textContent = 'Keep Trying!';
+            scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
         }
-
-        scoreText.textContent = `You got ${score} out of ${total}!`;
     },
 
     // Show operation selection screen
