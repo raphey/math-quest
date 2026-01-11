@@ -187,7 +187,7 @@ const UI = {
             title.textContent = 'Good Job! 🎉';
             scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
         } else {
-            title.textContent = 'Keep Trying!';
+            title.textContent = '';
             scoreText.textContent = `You got ${score} out of ${total}.\nLet's play again!`;
         }
     },
