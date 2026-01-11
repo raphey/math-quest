@@ -80,6 +80,35 @@ const QuestionGenerator = {
         };
     },
 
+    // Generate division question based on difficulty
+    generateDivision: function(difficulty) {
+        let divisor, quotient, dividend;
+
+        if (difficulty === 1) {
+            // Level 1: Numbers 1-5
+            divisor = Math.floor(Math.random() * 5) + 1;
+            quotient = Math.floor(Math.random() * 5) + 1;
+        } else if (difficulty === 2) {
+            // Level 2: Numbers 1-10
+            divisor = Math.floor(Math.random() * 10) + 1;
+            quotient = Math.floor(Math.random() * 10) + 1;
+        } else {
+            // Default to level 1
+            divisor = Math.floor(Math.random() * 5) + 1;
+            quotient = Math.floor(Math.random() * 5) + 1;
+        }
+
+        // Calculate dividend (ensures whole number result)
+        dividend = divisor * quotient;
+
+        return {
+            question: `${dividend} ÷ ${divisor} = ?`,
+            answer: quotient,
+            num1: dividend,
+            num2: divisor
+        };
+    },
+
     // Main generate function - routes to correct operation
     generate: function(operation, difficulty) {
         if (operation === 'addition') {
@@ -88,8 +117,9 @@ const QuestionGenerator = {
             return this.generateSubtraction(difficulty);
         } else if (operation === 'multiplication') {
             return this.generateMultiplication(difficulty);
+        } else if (operation === 'division') {
+            return this.generateDivision(difficulty);
         }
-        // Future: add division
         // Default to addition
         return this.generateAddition(difficulty);
     }
