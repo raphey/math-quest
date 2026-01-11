@@ -66,10 +66,6 @@ const Game = {
 
     // Handle wrong answer
     onWrongAnswer: function() {
-        if (typeof UI !== 'undefined') {
-            UI.showFeedback("Oops! Try the next one! 💪");
-        }
-
         if (typeof Sounds !== 'undefined') {
             Sounds.playWrong();
         }
