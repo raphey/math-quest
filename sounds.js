@@ -84,16 +84,24 @@ const Sounds = {
     playFireworks: function() {
         this.init();
 
-        // Major 7th arpeggio: C-E-G-B across 2 octaves
+        // Major 7th arpeggio: C-E-G-B across 4 octaves
         const notes = [
-            261.63, // C4
-            329.63, // E4
-            392.00, // G4
-            493.88, // B4
-            523.25, // C5
-            659.25, // E5
-            783.99, // G5
-            987.77  // B5
+            261.63,  // C4
+            329.63,  // E4
+            392.00,  // G4
+            493.88,  // B4
+            523.25,  // C5
+            659.25,  // E5
+            783.99,  // G5
+            987.77,  // B5
+            1046.50, // C6
+            1318.51, // E6
+            1567.98, // G6
+            1975.53, // B6
+            2093.00, // C7
+            2637.02, // E7
+            3135.96, // G7
+            3951.07  // B7
         ];
 
         const noteDuration = 0.15;
