@@ -31,12 +31,12 @@ const Sounds = {
         oscillator.stop(this.audioContext.currentTime + 0.1);
     },
 
-    // Play a correct answer sound (happy ascending notes)
+    // Play a correct answer sound (Mario coin-style)
     playCorrect: function() {
         this.init();
 
-        const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
-        const duration = 0.15;
+        const notes = [987.77, 1318.51]; // B5, E6 (perfect fourth)
+        const durations = [0.08, 0.2]; // Second note has longer decay
 
         notes.forEach((freq, i) => {
             const oscillator = this.audioContext.createOscillator();
@@ -46,11 +46,12 @@ const Sounds = {
             gainNode.connect(this.audioContext.destination);
 
             oscillator.frequency.value = freq;
-            oscillator.type = 'sine';
+            oscillator.type = 'square';
 
-            const startTime = this.audioContext.currentTime + (i * duration);
+            const startTime = this.audioContext.currentTime + (i * 0.08);
+            const duration = durations[i];
 
-            gainNode.gain.setValueAtTime(0.3, startTime);
+            gainNode.gain.setValueAtTime(0.2, startTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
 
             oscillator.start(startTime);

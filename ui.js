@@ -128,8 +128,30 @@ const UI = {
 
         const isCorrect = Game.checkAnswer(this.currentAnswer);
 
-        // Clear answer immediately for next question
-        this.clearAnswer();
+        if (isCorrect) {
+            // Show checkmark before clearing
+            this.showCorrectFeedback();
+        } else {
+            // Clear answer immediately for wrong answers
+            this.clearAnswer();
+        }
+    },
+
+    // Show visual feedback for correct answer
+    showCorrectFeedback: function() {
+        const display = document.getElementById('answer-display');
+        display.style.background = 'linear-gradient(135deg, #66bb6a 0%, #43a047 100%)';
+        display.style.color = 'white';
+        display.textContent = '✓';
+        display.style.fontSize = '4rem';
+
+        // Clear after animation, timed with game delay
+        setTimeout(() => {
+            display.style.background = '';
+            display.style.color = '';
+            display.style.fontSize = '';
+            this.clearAnswer();
+        }, 700);
     },
 
     // Update the question display
