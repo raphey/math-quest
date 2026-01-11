@@ -74,6 +74,7 @@ body {
 
 .game-main {
     padding: 27px 30px 40px 30px;
+    min-height: 650px;
 }
 
 .question-display {
@@ -221,6 +222,7 @@ body {
 .menu-screen {
     padding: 60px 40px;
     text-align: center;
+    min-height: 650px;
 }
 
 .menu-title {
