@@ -126,32 +126,46 @@ const UI = {
             return; // No answer to submit
         }
 
+        const userAnswer = this.currentAnswer;
         const isCorrect = Game.checkAnswer(this.currentAnswer);
 
         if (isCorrect) {
-            // Show checkmark before clearing
-            this.showCorrectFeedback();
+            // Show their correct answer in green
+            this.showCorrectFeedback(userAnswer);
         } else {
-            // Clear answer immediately for wrong answers
-            this.clearAnswer();
+            // Show the correct answer
+            this.showWrongFeedback(Game.currentQuestion.answer);
         }
     },
 
     // Show visual feedback for correct answer
-    showCorrectFeedback: function() {
+    showCorrectFeedback: function(userAnswer) {
         const display = document.getElementById('answer-display');
         display.style.background = 'linear-gradient(135deg, #66bb6a 0%, #43a047 100%)';
         display.style.color = 'white';
-        display.textContent = '✓';
-        display.style.fontSize = '4rem';
+        display.textContent = userAnswer;
 
         // Clear after animation, timed with game delay
         setTimeout(() => {
             display.style.background = '';
             display.style.color = '';
-            display.style.fontSize = '';
             this.clearAnswer();
         }, 700);
+    },
+
+    // Show visual feedback for wrong answer
+    showWrongFeedback: function(correctAnswer) {
+        const display = document.getElementById('answer-display');
+        display.style.background = 'linear-gradient(135deg, #f5576c 0%, #c62828 100%)';
+        display.style.color = 'white';
+        display.textContent = correctAnswer;
+
+        // Clear after showing correct answer
+        setTimeout(() => {
+            display.style.background = '';
+            display.style.color = '';
+            this.clearAnswer();
+        }, 900);
     },
 
     // Update the question display
