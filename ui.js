@@ -101,8 +101,8 @@ const UI = {
 
     // Add a digit to the current answer
     addDigit: function(digit) {
-        // Limit to 3 digits (max answer for two-digit addition is 198)
-        if (this.currentAnswer.length < 3) {
+        // Limit to 4 digits (max answer for three-digit addition is 1998)
+        if (this.currentAnswer.length < 4) {
             this.currentAnswer += digit;
             this.updateAnswerDisplay();
         }

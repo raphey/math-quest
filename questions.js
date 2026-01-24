@@ -14,6 +14,10 @@ const QuestionGenerator = {
             // Level 2: Two-digit (10-99)
             num1 = Math.floor(Math.random() * 90) + 10;
             num2 = Math.floor(Math.random() * 90) + 10;
+        } else if (difficulty === 3) {
+            // Level 3: Three-digit (100-999)
+            num1 = Math.floor(Math.random() * 900) + 100;
+            num2 = Math.floor(Math.random() * 900) + 100;
         } else {
             // Default to level 1
             num1 = Math.floor(Math.random() * 9) + 1;
@@ -40,6 +44,10 @@ const QuestionGenerator = {
             // Level 2: Two-digit (10-99)
             num1 = Math.floor(Math.random() * 90) + 10;
             num2 = Math.floor(Math.random() * (num1 - 10)) + 10; // Ensure positive result
+        } else if (difficulty === 3) {
+            // Level 3: Three-digit (100-999)
+            num1 = Math.floor(Math.random() * 900) + 100;
+            num2 = Math.floor(Math.random() * (num1 - 100)) + 100; // Ensure positive result
         } else {
             // Default to level 1
             num1 = Math.floor(Math.random() * 9) + 1;
@@ -95,6 +103,10 @@ const QuestionGenerator = {
         } else if (difficulty === 2) {
             // Level 2: Numbers 1-10
             divisor = Math.floor(Math.random() * 10) + 1;
+            quotient = Math.floor(Math.random() * 10) + 1;
+        } else if (difficulty === 3) {
+            // Level 3: Two-digit ÷ one-digit (10-99 ÷ 2-9)
+            divisor = Math.floor(Math.random() * 8) + 2;
             quotient = Math.floor(Math.random() * 10) + 1;
         } else {
             // Default to level 1
