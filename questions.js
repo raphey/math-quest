@@ -66,6 +66,10 @@ const QuestionGenerator = {
             // Level 2: Numbers 1-10
             num1 = Math.floor(Math.random() * 10) + 1;
             num2 = Math.floor(Math.random() * 10) + 1;
+        } else if (difficulty === 3) {
+            // Level 3: Two-digit × one-digit (10-99 × 1-9)
+            num1 = Math.floor(Math.random() * 90) + 10;
+            num2 = Math.floor(Math.random() * 9) + 1;
         } else {
             // Default to level 1
             num1 = Math.floor(Math.random() * 5) + 1;
